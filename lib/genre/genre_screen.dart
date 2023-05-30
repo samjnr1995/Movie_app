@@ -15,18 +15,18 @@ class GenreScreen extends StatefulWidget {
   final VoidCallback previousPage;
 
   @override
-  _GenreScreenState createState() => _GenreScreenState();
+  GenreScreenState createState() => GenreScreenState();
 }
 
-class _GenreScreenState extends State<GenreScreen> {
+class GenreScreenState extends State<GenreScreen> {
   List<Genre> genres = [
-    Genre(name: 'Action'),
-    Genre(name: 'Comedy'),
-    Genre(name: 'Horror'),
-    Genre(name: 'Anime'),
-    Genre(name: 'Drama'),
-    Genre(name: 'Family'),
-    Genre(name: 'Romance'),
+    const Genre(name: 'Action'),
+    const Genre(name: 'Comedy'),
+    const Genre(name: 'Horror'),
+    const Genre(name: 'Anime'),
+    const Genre(name: 'Drama'),
+    const Genre(name: 'Family'),
+    const Genre(name: 'Romance'),
   ];
 
   void toggleSelected(Genre genre) {
@@ -65,7 +65,7 @@ class _GenreScreenState extends State<GenreScreen> {
                   ),
                   Expanded(
                     child: ListView.separated(
-                      padding: EdgeInsets.symmetric(vertical: 60),
+                      padding: const EdgeInsets.symmetric(vertical: 60),
                       itemBuilder: (context, index) {
                         final genre = genres[index];
                         return ListCard(
@@ -74,7 +74,7 @@ class _GenreScreenState extends State<GenreScreen> {
                         );
                       },
                       separatorBuilder: (context, index) {
-                        return SizedBox(height: kListItemSpacing);
+                        return const SizedBox(height: kListItemSpacing);
                       },
                       itemCount: genres.length,
                     ),
@@ -83,12 +83,12 @@ class _GenreScreenState extends State<GenreScreen> {
               ),
             ),
           ),
-          SizedBox(height: 50),
+          const SizedBox(height: 50),
           Align(
             alignment: Alignment.bottomCenter,
             child: ElevatedButton(
               onPressed: widget.nextPage,
-              child: Text('Continue'),
+              child: const Text('Continue'),
             ),
           ),
         ],

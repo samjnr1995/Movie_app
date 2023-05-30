@@ -23,11 +23,11 @@ class _MovieFlowState extends State<MovieFlow> {
 
   void nextPage() {
     pageController.nextPage(
-        duration: const Duration(milliseconds: 600), curve: Curves.easeOutCubic);
+        duration: const Duration(milliseconds: 400), curve: Curves.easeOutCubic);
   }
   void previousPage() {
     pageController.previousPage(
-        duration: const Duration(milliseconds: 600), curve: Curves.easeOutCubic);
+        duration: const Duration(milliseconds: 400), curve: Curves.easeOutCubic);
   }
   @override
   Widget build(BuildContext context) {

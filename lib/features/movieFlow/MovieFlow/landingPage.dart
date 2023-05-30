@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie/widgets/elevated_button.dart';
+import 'package:movie/constant.dart';
 class LandingPage extends StatefulWidget {
   const LandingPage({
     Key? key,
@@ -11,10 +11,10 @@ class LandingPage extends StatefulWidget {
   final VoidCallback previousPage;
 
   @override
-  _LandingPageState createState() => _LandingPageState();
+  LandingPageState createState() => LandingPageState();
 }
 
-class _LandingPageState extends State<LandingPage> {
+class LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,14 +27,16 @@ class _LandingPageState extends State<LandingPage> {
               style: Theme.of(context).textTheme.headline5,
               textAlign: TextAlign.center,
             ),
+            const SizedBox(height:  kMediumSpacing,),
 
             Image.asset('assets/horror.png'),
+            SizedBox(height: kMediumSpacing,),
 
             Align(
               alignment: Alignment.bottomCenter,
               child: ElevatedButton(
                 onPressed: widget.nextPage,
-                child: Text('Get Started'),
+                child: const Text('Get Started'),
               ),
             ),
             const Spacer(),

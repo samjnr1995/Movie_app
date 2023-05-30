@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie/result/result_screen.dart';
 
 import '../constant.dart';
 
@@ -55,7 +56,8 @@ class _YearsBackScreenState extends State<YearsBackScreen> {
                 max: 70,
                 min: 0,
                 divisions: 70,
-                label: '${yearsBack.ceil()}' ,
+                label:
+                '${yearsBack.ceil()}' ,
                 onChanged: (value) {
                   setState(() {
                     yearsBack = value;
@@ -65,7 +67,7 @@ class _YearsBackScreenState extends State<YearsBackScreen> {
             Align(
               alignment: Alignment.bottomCenter,
               child: ElevatedButton(
-                onPressed: widget.nextPage,
+                onPressed: () => Navigator.of(context).push(ResultScreen.route()),
                 child: Text('yes please'),
               ),
             ),
