@@ -1,30 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie/constant.dart';
-import 'package:movie/genre/genre.dart';
 import 'package:movie/result/movie.dart';
 
-class ResultScreen extends StatefulWidget {
-  static route({bool fullscreenDialog = true}) =>
-      MaterialPageRoute(builder: (context) => ResultScreen());
-  @override
-  _ResultScreenState createState() => _ResultScreenState();
-}
+import '../features/movieFlow/MovieFlow/Movie_flow_controller.dart';
 
-class _ResultScreenState extends State<ResultScreen> {
-  final double movieHeight = 150;
-  final movie = const Movie(
-      title: 'The Hulk',
-      overView: 'Samuel, a genetics researcher with a huge past',
-      voteAverage: 4.8,
-      genres: [
-        Genre(name: 'Action'),
-        Genre(name: 'Fantasy'),
-      ],
-      releaseData: '2019 - 05 - 15',
-      backDropPath: '',
-      posterPath: '');
+class ResultScreen extends ConsumerWidget {
+final double movieHeight = 150;
+
+  const ResultScreen({super.key});
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(),
       body: Column(
@@ -35,12 +21,12 @@ class _ResultScreenState extends State<ResultScreen> {
               Stack(
                 clipBehavior: Clip.none,
                 children: [
-                  CoverImage(),
+                  const CoverImage(),
                   Positioned(
                     width: MediaQuery.of(context).size.width,
                     bottom: -(movieHeight / 2),
                     child: MovieImageDetails(
-                        movie: movie, movieHeight: movieHeight),
+                       movie: ref.watch(movieFlowControllerProvider).movie, movieHeight: movieHeight,),
                   ),
                 ],
               ),
@@ -48,9 +34,9 @@ class _ResultScreenState extends State<ResultScreen> {
                 height: movieHeight / 2,
               ),
               Padding(
-                padding: EdgeInsets.all(12.0),
+                padding: const EdgeInsets.all(12.0),
                 child: Text(
-                  movie.overView,
+                  ref.watch(movieFlowControllerProvider).movie.overView,
                   style: Theme.of(context).textTheme.bodyText2,
                 ),
               ),
@@ -60,7 +46,7 @@ class _ResultScreenState extends State<ResultScreen> {
             alignment: Alignment.bottomCenter,
             child: ElevatedButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text('Find another movie'),
+              child: const Text('Find another movie'),
             ),
           ),
         ],
@@ -70,6 +56,8 @@ class _ResultScreenState extends State<ResultScreen> {
 }
 
 class CoverImage extends StatefulWidget {
+  const CoverImage({super.key});
+
   @override
   _CoverImageState createState() => _CoverImageState();
 }
@@ -97,16 +85,16 @@ class _CoverImageState extends State<CoverImage> {
   }
 }
 
-class MovieImageDetails extends StatelessWidget {
+class MovieImageDetails extends ConsumerWidget {
   const MovieImageDetails(
       {Key? key, required this.movie, required this.movieHeight})
       : super(key: key);
   final Movie movie;
   final double movieHeight;
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 24),
+      padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Row(
         children: [
           SizedBox(
@@ -114,7 +102,7 @@ class MovieImageDetails extends StatelessWidget {
             height: movieHeight,
             child: const Placeholder(),
           ),
-          SizedBox(
+          const SizedBox(
             width: kMediumSpacing,
           ),
           Expanded(
@@ -132,7 +120,7 @@ class MovieImageDetails extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    '4.8',
+                    movie.voteAverage.toString(),
                     style: Theme.of(context).textTheme.bodyText2?.copyWith(
                         color: Theme.of(context)
                             .textTheme
@@ -140,7 +128,7 @@ class MovieImageDetails extends StatelessWidget {
                             ?.color
                             ?.withOpacity(0.62)),
                   ),
-                  Icon(
+                  const Icon(
                     Icons.star_rounded,
                     size: 20,
                     color: Colors.amber,

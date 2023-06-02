@@ -1,22 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie/constant.dart';
-class LandingPage extends StatefulWidget {
+
+import 'Movie_flow_controller.dart';
+class LandingPage extends ConsumerWidget {
   const LandingPage({
     Key? key,
-    required this.nextPage,
-    required this.previousPage,
   }) : super(key: key);
 
-  final VoidCallback nextPage;
-  final VoidCallback previousPage;
-
   @override
-  LandingPageState createState() => LandingPageState();
-}
-
-class LandingPageState extends State<LandingPage> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(),
       body: Center(
@@ -30,12 +23,12 @@ class LandingPageState extends State<LandingPage> {
             const SizedBox(height:  kMediumSpacing,),
 
             Image.asset('assets/horror.png'),
-            SizedBox(height: kMediumSpacing,),
+            const SizedBox(height: kMediumSpacing,),
 
             Align(
               alignment: Alignment.bottomCenter,
               child: ElevatedButton(
-                onPressed: widget.nextPage,
+                onPressed: ref.read(movieFlowControllerProvider.notifier).nextPage,
                 child: const Text('Get Started'),
               ),
             ),

@@ -1,28 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie/constant.dart';
 
-class RatingScreen extends StatefulWidget {
+import '../features/movieFlow/MovieFlow/Movie_flow_controller.dart';
+
+class RatingScreen extends ConsumerWidget {
   const RatingScreen({
     Key? key,
-    required this.nextPage,
-    required this.previousPage,
   }) : super(key: key);
 
-  final VoidCallback nextPage;
-  final VoidCallback previousPage;
-
+  
   @override
-  _RatingScreenState createState() => _RatingScreenState();
-}
-
-class _RatingScreenState extends State<RatingScreen> {
-   double rating = 5;
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(
-          onPressed: widget.previousPage,
+          onPressed: (){
+            ref.watch(movieFlowControllerProvider.notifier).previousPage();
+          },
         ),
       ),
       body: Center(
@@ -33,12 +28,12 @@ class _RatingScreenState extends State<RatingScreen> {
               style: Theme.of(context).textTheme.headline5,
               textAlign: TextAlign.center,
             ),
-            Spacer(),
+            const Spacer(),
             Row(
               children: [
                 Center(
                   child: Text(
-                    '${rating.ceil()}',
+                    '${ref.watch(movieFlowControllerProvider).rating}',
                     style: Theme.of(context).textTheme.headline5,
                   ),
                 ),
@@ -51,21 +46,19 @@ class _RatingScreenState extends State<RatingScreen> {
             ),
             const Spacer(),
             Slider(
-                value: rating,
+                value: ref.watch(movieFlowControllerProvider).rating.toDouble(),
                 max: 10,
                 min: 1,
-                label: '${rating.ceil()}' ,
+                label: '${ref.watch(movieFlowControllerProvider).rating}' ,
                 onChanged: (value) {
-                  setState(() {
-                    rating = value;
-                  });
+                  ref.read(movieFlowControllerProvider.notifier).updateRating(value.toInt());
                 }),
             const Spacer(),
             Align(
               alignment: Alignment.bottomCenter,
               child: ElevatedButton(
-                onPressed: widget.nextPage,
-                child: Text('yes please'),
+                onPressed: ref.read(movieFlowControllerProvider.notifier).nextPage,
+                child: const Text('yes please'),
               ),
             ),
             const SizedBox(height: kMediumSpacing,),

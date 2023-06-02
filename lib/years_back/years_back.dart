@@ -1,30 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:movie/result/result_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../constant.dart';
+import '../features/movieFlow/MovieFlow/Movie_flow_controller.dart';
 
-class YearsBackScreen extends StatefulWidget {
+class YearsBackScreen extends ConsumerWidget {
   const YearsBackScreen({
     Key? key,
-    required this.nextPage,
-    required this.previousPage,
+
   }) : super(key: key);
 
-  final VoidCallback nextPage;
-  final VoidCallback previousPage;
-
   @override
-  _YearsBackScreenState createState() => _YearsBackScreenState();
-}
-
-class _YearsBackScreenState extends State<YearsBackScreen> {
-  double yearsBack = 10;
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(
-          onPressed: widget.previousPage,
+          onPressed: (){
+            ref.watch(movieFlowControllerProvider.notifier).previousPage();
+          }
         ),
       ),
       body: Center(
@@ -35,12 +28,12 @@ class _YearsBackScreenState extends State<YearsBackScreen> {
               style: Theme.of(context).textTheme.headline5,
               textAlign: TextAlign.center,
             ),
-            Spacer(),
+            const Spacer(),
 
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('${yearsBack.ceil()}',style: Theme.of(context).textTheme.headline5,),
+                Text('${ref.watch(movieFlowControllerProvider).yearsBack}',style: Theme.of(context).textTheme.headline5,),
                 Text(
                   'Years back',
                   style: Theme.of(context).textTheme.headline4?.copyWith(
@@ -50,25 +43,23 @@ class _YearsBackScreenState extends State<YearsBackScreen> {
 
               ],
             ),
-            Spacer(),
+            const Spacer(),
             Slider(
-                value: yearsBack,
+                value: ref.watch(movieFlowControllerProvider).yearsBack.toDouble(),
                 max: 70,
                 min: 0,
                 divisions: 70,
                 label:
-                '${yearsBack.ceil()}' ,
+                '${ref.watch(movieFlowControllerProvider).yearsBack}' ,
                 onChanged: (value) {
-                  setState(() {
-                    yearsBack = value;
-                  });
+                  ref.read(movieFlowControllerProvider.notifier).updateYearsBack(value.toInt());
                 }),
             const Spacer(),
             Align(
               alignment: Alignment.bottomCenter,
               child: ElevatedButton(
-                onPressed: () => Navigator.of(context).push(ResultScreen.route()),
-                child: Text('yes please'),
+                onPressed: () => ref.read(movieFlowControllerProvider.notifier).nextPage(),
+                child: const Text('yes please'),
               ),
             ),
             const SizedBox(height: kMediumSpacing,),
