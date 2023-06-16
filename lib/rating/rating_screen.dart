@@ -16,7 +16,7 @@ class RatingScreen extends ConsumerWidget {
       appBar: AppBar(
         leading: BackButton(
           onPressed: (){
-            ref.watch(movieFlowControllerProvider.notifier).previousPage();
+            ref.read(movieFlowControllerProvider.notifier).previousPage();
           },
         ),
       ),
@@ -29,20 +29,24 @@ class RatingScreen extends ConsumerWidget {
               textAlign: TextAlign.center,
             ),
             const Spacer(),
-            Row(
-              children: [
-                Center(
-                  child: Text(
-                    '${ref.watch(movieFlowControllerProvider).rating}',
-                    style: Theme.of(context).textTheme.headline5,
+            Center(
+              child: Row(
+                children: [
+                  Center(
+                    child: Text(
+                      '${ref.watch(movieFlowControllerProvider).rating}',
+                      style: Theme.of(context).textTheme.headline5,
+                    ),
                   ),
-                ),
-                const Icon(
-                  Icons.star_rounded,
-                  color: Colors.amber,
-                  size: 64,
-                ),
-              ],
+                  Center(
+                    child: const Icon(
+                      Icons.star_rounded,
+                      color: Colors.amber,
+                      size: 64,
+                    ),
+                  ),
+                ],
+              ),
             ),
             const Spacer(),
             Slider(

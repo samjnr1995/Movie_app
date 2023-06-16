@@ -3,21 +3,20 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../constant.dart';
 import '../features/movieFlow/MovieFlow/Movie_flow_controller.dart';
+import '../result/result_screen.dart';
 
 class YearsBackScreen extends ConsumerWidget {
-  const YearsBackScreen({
-    Key? key,
-
-  }) : super(key: key);
+  const YearsBackScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(
-          onPressed: (){
-            ref.watch(movieFlowControllerProvider.notifier).previousPage();
-          }
+          onPressed: () {
+            ref.read(movieFlowControllerProvider.notifier).previousPage();
+          },
         ),
       ),
       body: Center(
@@ -29,46 +28,48 @@ class YearsBackScreen extends ConsumerWidget {
               textAlign: TextAlign.center,
             ),
             const Spacer(),
-
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('${ref.watch(movieFlowControllerProvider).yearsBack}',style: Theme.of(context).textTheme.headline5,),
                 Text(
-                  'Years back',
+                  '${ref.watch(movieFlowControllerProvider).yearsBack}',
+                  style: Theme.of(context).textTheme.headline5,
+                ),
+                Text(
+                  ref.watch(movieFlowControllerProvider).yearsBack.toString(),
                   style: Theme.of(context).textTheme.headline4?.copyWith(
-                    color: Theme.of(context).textTheme.headline4?.color?.withOpacity(0.62),
+                    color: Theme.of(context)
+                        .textTheme
+                        .headline4?.color
+                        ?.withOpacity(0.62),
                   ),
                 ),
-
               ],
             ),
             const Spacer(),
             Slider(
-                value: ref.watch(movieFlowControllerProvider).yearsBack.toDouble(),
-                max: 70,
-                min: 0,
-                divisions: 70,
-                label:
-                '${ref.watch(movieFlowControllerProvider).yearsBack}' ,
-                onChanged: (value) {
-                  ref.read(movieFlowControllerProvider.notifier).updateYearsBack(value.toInt());
-                }),
+              value: ref.watch(movieFlowControllerProvider).yearsBack.toDouble(),
+              max: 70,
+              min: 0,
+              divisions: 70,
+              label: '${ref.watch(movieFlowControllerProvider).yearsBack}',
+              onChanged: (value) {
+                ref.read(movieFlowControllerProvider.notifier)
+                    .updateYearsBack(value.toInt());
+              },
+            ),
             const Spacer(),
             Align(
               alignment: Alignment.bottomCenter,
               child: ElevatedButton(
-                onPressed: () => ref.read(movieFlowControllerProvider.notifier).nextPage(),
+                onPressed: () => Navigator.of(context).push(ResultScreen.route()),
                 child: const Text('yes please'),
               ),
             ),
-            const SizedBox(height: kMediumSpacing,),
+            const SizedBox(height: kMediumSpacing),
           ],
-
-
         ),
-
       ),
     );
-
-  }}
+  }
+}

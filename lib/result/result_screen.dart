@@ -6,7 +6,11 @@ import 'package:movie/result/movie.dart';
 import '../features/movieFlow/MovieFlow/Movie_flow_controller.dart';
 
 class ResultScreen extends ConsumerWidget {
-final double movieHeight = 150;
+  static route({fullScreenDialogue = true}) => MaterialPageRoute(
+        builder: (context) => const ResultScreen(),
+        fullscreenDialog: fullScreenDialogue,
+      );
+  final double movieHeight = 150;
 
   const ResultScreen({super.key});
   @override
@@ -26,7 +30,9 @@ final double movieHeight = 150;
                     width: MediaQuery.of(context).size.width,
                     bottom: -(movieHeight / 2),
                     child: MovieImageDetails(
-                       movie: ref.watch(movieFlowControllerProvider).movie, movieHeight: movieHeight,),
+                      movie: ref.watch(movieFlowControllerProvider).movie,
+                      movieHeight: movieHeight,
+                    ),
                   ),
                 ],
               ),
@@ -39,8 +45,8 @@ final double movieHeight = 150;
                   ref.watch(movieFlowControllerProvider).movie.overView,
                   style: Theme.of(context).textTheme.bodyText2,
                 ),
-              ),
-            ],
+               ),
+            ]
           )),
           Align(
             alignment: Alignment.bottomCenter,

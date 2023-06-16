@@ -1,3 +1,5 @@
+import 'genre_entity.dart';
+
 class Genre {
   final String name;
   final bool isSelected;
@@ -8,6 +10,9 @@ class Genre {
     this.id = 0,
     this.isSelected = false,
   });
+  factory Genre.fromEntity(GenreEntity entity){
+    return Genre(name: entity.name, id: entity.id, isSelected: false);
+  }
 
   Genre toggleSelected() {
     return Genre(

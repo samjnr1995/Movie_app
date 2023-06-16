@@ -8,6 +8,7 @@ import 'list_card.dart';
 class GenreScreen extends ConsumerWidget {
   const GenreScreen({super.key});
 
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
