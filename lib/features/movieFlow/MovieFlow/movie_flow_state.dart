@@ -1,42 +1,21 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../genre/genre.dart';
 import '../../../result/movie.dart';
-
-const movieMock = Movie(
-    title: 'The Hulk',
-    overView: 'Samuel, a genetics researcher with a huge past',
-    voteAverage: 4.8,
-    genres: [
-      Genre(name: 'Action'),
-      Genre(name: 'Fantasy'),
-    ],
-    releaseData: '2019 - 05 - 15',
-    backDropPath: '',
-    posterPath: '');
-
-const genresMock = [
-  Genre(name: 'Action'),
-  Genre(name: 'Comedy'),
-  Genre(name: 'Horror'),
-  Genre(name: 'Anime'),
-  Genre(name: 'Drama'),
-  Genre(name: 'Family'),
-  Genre(name: 'Romance'),
-];
 
 @immutable
 class MovieFlowState {
   final PageController pageController;
   final int rating;
   final int yearsBack;
-  final List<Genre> genres;
-  final Movie movie;
+  final AsyncValue<List<Genre>> genres;
+  final AsyncValue<Movie> movie;
 
   const MovieFlowState(
       {required this.pageController,
-      this.movie = movieMock,
-      this.genres = genresMock,
+      required this.movie ,
+      required this.genres,
       this.rating = 5,
       this.yearsBack = 10});
 
@@ -44,8 +23,8 @@ class MovieFlowState {
       {PageController? pageController,
       int? rating,
       int? yearsBack,
-      List<Genre>? genres,
-      Movie? movie}) {
+      AsyncValue<List<Genre>>? genres,
+      AsyncValue<Movie>? movie,}) {
     return MovieFlowState(
       pageController: pageController ?? this.pageController,
       rating: rating ?? this.rating,

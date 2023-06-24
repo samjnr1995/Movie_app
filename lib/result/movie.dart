@@ -10,8 +10,8 @@ class Movie {
   final num voteAverage;
   final List<Genre> genres;
   final String releaseData;
-  final String backDropPath;
-  final String posterPath;
+  final String? backDropPath;
+  final String? posterPath;
 
   const Movie({
     required this.title,
@@ -19,8 +19,8 @@ class Movie {
     required this.voteAverage,
     required this.genres,
     required this.releaseData,
-    required this.backDropPath,
-    required this.posterPath,
+     this.backDropPath,
+     this.posterPath,
   });
 
   Movie.initial()

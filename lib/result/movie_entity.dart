@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 class MovieEntity {
   final String title;
   final String overview;
-  final List<Int> genresIds;
+  final List<int> genresIds;
   final String releaseDate;
   final String? backDropPath;
   final String? posterPath;
@@ -21,13 +21,16 @@ class MovieEntity {
       this.posterPath});
   factory MovieEntity.fromMap(Map<String, dynamic> map) {
     return MovieEntity(
-        title: map['title'],
-        overview: map['overview'],
-        genresIds: map['genres_Id'],
-        releaseDate: map['release_date'],
-        voteAverage: map['voteAverage'],
-        backDropPath: map['backdrop_path']);
+      title: map['title'],
+      overview: map['overview'],
+      genresIds: List<int>.from(map['genre_ids']),
+      releaseDate: map['release_date'],
+      voteAverage: map['vote_average'],
+      backDropPath: map['backdrop_path'],
+      posterPath: map['poster_path'],
+    );
   }
+
 
   @override
   operator ==(Object other) {

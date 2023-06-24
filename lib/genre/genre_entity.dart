@@ -14,6 +14,7 @@ class GenreEntity {
   @override
   String toString() => 'GenreEntity(id: $id, name: $name)';
 
+  @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is GenreEntity && other.id == id && other.name == name;

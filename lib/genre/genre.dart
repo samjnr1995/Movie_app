@@ -5,7 +5,7 @@ class Genre {
   final bool isSelected;
   final int id;
 
-  const Genre({
+   const Genre({
     required this.name,
     this.id = 0,
     this.isSelected = false,

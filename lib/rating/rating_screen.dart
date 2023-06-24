@@ -38,12 +38,10 @@ class RatingScreen extends ConsumerWidget {
                       style: Theme.of(context).textTheme.headline5,
                     ),
                   ),
-                  Center(
-                    child: const Icon(
-                      Icons.star_rounded,
-                      color: Colors.amber,
-                      size: 64,
-                    ),
+                  const Icon(
+                    Icons.star_rounded,
+                    color: Colors.amber,
+                    size: 64,
                   ),
                 ],
               ),

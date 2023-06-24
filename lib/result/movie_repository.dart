@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie/genre/genre_entity.dart';
 import 'package:movie/main.dart';
-import 'package:movie/result/movie.dart';
 import 'package:movie/result/movie_entity.dart';
 
 import '../core/3nvironmental_variable.dart';

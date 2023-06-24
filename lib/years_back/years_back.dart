@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie/widgets/elevated_button.dart';
 
 import '../constant.dart';
 import '../features/movieFlow/MovieFlow/Movie_flow_controller.dart';
@@ -10,7 +11,6 @@ class YearsBackScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(
@@ -61,9 +61,23 @@ class YearsBackScreen extends ConsumerWidget {
             const Spacer(),
             Align(
               alignment: Alignment.bottomCenter,
-              child: ElevatedButton(
-                onPressed: () => Navigator.of(context).push(ResultScreen.route()),
-                child: const Text('yes please'),
+              child: ElevatedButon(
+                onPressed: () async {
+                  debugPrint('button successful pressed');
+                  await ref
+                      .read(movieFlowControllerProvider.notifier)
+                      .getRecommendedMovie();
+                  debugPrint('recommended movie successful');
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> ResultScreen()));
+                },
+                isLoading: ref.watch(movieFlowControllerProvider)
+                    .movie
+                    .when(
+                  data: (_) => false,
+                  loading: () => true,
+                  error: (_, __) => false,
+                ),
+                text: 'Amazing',
               ),
             ),
             const SizedBox(height: kMediumSpacing),

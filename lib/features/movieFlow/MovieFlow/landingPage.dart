@@ -21,10 +21,10 @@ class LandingPage extends ConsumerWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height:  kMediumSpacing,),
-
-            Image.asset('assets/horror.png'),
+             const CircleAvatar(
+               radius: 150,
+              backgroundImage: AssetImage('assets/horror.png')),
             const SizedBox(height: kMediumSpacing,),
-
             Align(
               alignment: Alignment.bottomCenter,
               child: ElevatedButton(

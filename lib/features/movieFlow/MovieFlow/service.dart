@@ -21,6 +21,7 @@ abstract class MovieService {
 
 class TMDBMovieService implements MovieService {
   TMDBMovieService(this._movieRepository);
+
   final MovieRepository _movieRepository;
 
   @override
@@ -31,20 +32,21 @@ class TMDBMovieService implements MovieService {
   }
 
   @override
-  Future<Movie> getRecommendedMovies(
-      int rating,
-      int yearsBack,
-      List<Genre> genres, [
-        DateTime? yearsBackFromDate,
-      ]) async {
-    final date = yearsBackFromDate ?? DateTime.now();
-    final year = date.year - yearsBack;
-    final genresIds = genres.map((e) => e.id).toList().join(',');
-    final movieEntities = await _movieRepository.getRecommendedMovies(
-        rating.toDouble(), '$year-01-01', genresIds);
-    final movies = movieEntities.map((e) => Movie.fromEntity(e, genres)).toList();
-    final rnd = Random();
-    final randomMovie = movies[rnd.nextInt(movies.length)];
-    return randomMovie;
+  Future<Movie> getRecommendedMovies(int rating, int yearsBack,
+      List<Genre> genres, [DateTime? yearsBackFromDate]) async {
+
+      final date = yearsBackFromDate ?? DateTime.now();
+      final year = date.year - yearsBack;
+      final genresIds = genres.map((e) => e.id).toList().join(',');
+      final movieEntities = await _movieRepository.getRecommendedMovies(
+        rating.toDouble(),
+        '$year-01-01',
+        genresIds,
+      );
+      final movies = movieEntities.map((e) => Movie.fromEntity(e, genres))
+          .toList();
+      final rnd = Random();
+      final randomMovie = movies[rnd.nextInt(movies.length)];
+      return randomMovie;
+    }
   }
-}

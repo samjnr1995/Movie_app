@@ -5,12 +5,14 @@ class ElevatedButon extends StatelessWidget {
   final VoidCallback onPressed;
   final String text;
   final double width;
+  final bool isLoading;
 
   ElevatedButon({
     Key? key,
     required this.onPressed,
     required this.text,
-    required this.width,
+     this.isLoading = false,
+     this.width = double.infinity,
   }) : super(key: key);
 
   @override
@@ -28,6 +30,9 @@ class ElevatedButon extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            if( isLoading )CircularProgressIndicator(
+              color:  Theme.of(context).colorScheme.onPrimary,
+            ),
             Text(
               text,
               style: Theme.of(context).textTheme.button,
