@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie/core/failue.dart';
+import 'package:movie/widgets/elevated_button.dart';
 
 import '../constant.dart';
+import '../core/failure_screen.dart';
 import '../features/movieFlow/MovieFlow/Movie_flow_controller.dart';
 import 'list_card.dart';
 
@@ -29,7 +32,7 @@ class GenreScreen extends ConsumerWidget {
                 children: [
                   Text(
                     'Let\'s start with a genre',
-                    style: Theme.of(context).textTheme.headline5,
+                    style: Theme.of(context).textTheme.headline6,
                     textAlign: TextAlign.center,
                   ),
                   Expanded(
@@ -54,7 +57,10 @@ class GenreScreen extends ConsumerWidget {
 
 
                     }, error: (e, s){
-                     return const Text('Something went wrong on our end');
+                     if (e is Failure){
+                       return FailureBody(message:  e.message ?? ' Unknown error occurred');
+                     }
+                     return const FailureBody(message: 'Something went wrong from our end');
                     }, loading: () => const Center(
                       child:  CircularProgressIndicator(),
                     ))
@@ -64,15 +70,9 @@ class GenreScreen extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 50),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: ElevatedButton(
-              onPressed: () {
-                ref.read(movieFlowControllerProvider.notifier).nextPage();
-              },
-              child: const Text('Continue'),
-            ),
-          ),
+          ElevatedButon(onPressed: () {
+            ref.read(movieFlowControllerProvider.notifier).nextPage();
+          }, text: 'Continue',)
         ],
       ),
     );

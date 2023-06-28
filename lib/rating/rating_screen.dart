@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie/constant.dart';
+import 'package:movie/widgets/elevated_button.dart';
 
 import '../features/movieFlow/MovieFlow/Movie_flow_controller.dart';
 
@@ -25,7 +26,7 @@ class RatingScreen extends ConsumerWidget {
           children: [
             Text(
               'Select a minimum rating\nranging from 1 - 10',
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.headline6,
               textAlign: TextAlign.center,
             ),
             const Spacer(),
@@ -38,10 +39,12 @@ class RatingScreen extends ConsumerWidget {
                       style: Theme.of(context).textTheme.headline5,
                     ),
                   ),
-                  const Icon(
-                    Icons.star_rounded,
-                    color: Colors.amber,
-                    size: 64,
+                  Center(
+                    child: const Icon(
+                      Icons.star_rounded,
+                      color: Colors.amber,
+                      size: 64,
+                    ),
                   ),
                 ],
               ),
@@ -56,13 +59,7 @@ class RatingScreen extends ConsumerWidget {
                   ref.read(movieFlowControllerProvider.notifier).updateRating(value.toInt());
                 }),
             const Spacer(),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: ElevatedButton(
-                onPressed: ref.read(movieFlowControllerProvider.notifier).nextPage,
-                child: const Text('yes please'),
-              ),
-            ),
+            ElevatedButon(onPressed: ref.read(movieFlowControllerProvider.notifier).nextPage, text: 'Proceed'),
             const SizedBox(height: kMediumSpacing,),
           ],
         ),

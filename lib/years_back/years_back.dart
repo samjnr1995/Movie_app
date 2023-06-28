@@ -33,7 +33,7 @@ class YearsBackScreen extends ConsumerWidget {
               children: [
                 Text(
                   '${ref.watch(movieFlowControllerProvider).yearsBack}',
-                  style: Theme.of(context).textTheme.headline5,
+                  style: Theme.of(context).textTheme.headline6,
                 ),
                 Text(
                   ref.watch(movieFlowControllerProvider).yearsBack.toString(),
@@ -63,11 +63,11 @@ class YearsBackScreen extends ConsumerWidget {
               alignment: Alignment.bottomCenter,
               child: ElevatedButon(
                 onPressed: () async {
-                  debugPrint('button successful pressed');
+
                   await ref
                       .read(movieFlowControllerProvider.notifier)
                       .getRecommendedMovie();
-                  debugPrint('recommended movie successful');
+
                   Navigator.push(context, MaterialPageRoute(builder: (context)=> ResultScreen()));
                 },
                 isLoading: ref.watch(movieFlowControllerProvider)

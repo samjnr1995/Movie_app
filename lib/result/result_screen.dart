@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie/constant.dart';
+import 'package:movie/core/failue.dart';
 import 'package:movie/result/movie.dart';
 
+import '../core/failure_screen.dart';
 import '../features/movieFlow/MovieFlow/Movie_flow_controller.dart';
 
 class ResultScreen extends ConsumerWidget {
@@ -61,8 +63,11 @@ class ResultScreen extends ConsumerWidget {
             ),
           );
         },
-        error: (e, s) {
-          return const Text('Something went wrong on our end');
+        error: (e, s, ) {
+          if(e is Failure){
+            return FailureScreen(message:  e.message ?? 'Unknown error occurred');
+          }
+          return const FailureScreen(message: 'Something went wrong on our end');
         },
         loading: () => const Scaffold(
               body: Center(
